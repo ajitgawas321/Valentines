@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Will You Be My Valentine?</title>
 
 <style>
@@ -10,18 +10,20 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        background: url('Pink White Simple Happy Valentines Day Greeting - Your Story_20260210_141157_0000.png') center/cover no-repeat fixed;
+        background: url('bg.png') center/cover no-repeat fixed;
         text-align: center;
         color: white;
+        overflow: hidden;
     }
 
     .container {
-        margin-top: 30%;
+        margin-top: 25%;
     }
 
     h1 {
         font-size: 2rem;
         text-shadow: 0 0 10px #000;
+        padding: 0 20px;
     }
 
     button {
@@ -32,73 +34,34 @@
         cursor: pointer;
         margin: 10px;
         font-weight: bold;
+        transition: 0.2s ease;
     }
 
-    #yesBtn { background: #ff4d6d; color: white; }
-    #noBtn { background: gray; color: white; position: absolute; }
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+    }
 
-    #message {
-        margin-top: 20px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #fff;
-        text-shadow: 0 0 10px #000;
+    #noBtn {
+        background: gray;
+        color: white;
+        position: absolute;
+    }
+
+    /* Popup Message Box */
+    #popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.95);
+        color: #ff4d6d;
+        padding: 25px;
+        width: 80%;
+        max-width: 320px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
         display: none;
-    }
-</style>
-
-</head>
-<body>
-
-<div class="container">
-    <h1>Goluuuu ❤️<br>Will you be my Valentine?</h1>
-    
-    <button id="yesBtn" onclick="yesClicked()">Yes</button>
-    <button id="noBtn" onclick="moveNo()">No</button>
-
-    <p id="message"></p>
-</div>
-
-<script>
-
-let yesCount = 0;
-
-function moveNo() {
-    let btn = document.getElementById("noBtn");
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 100);
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
-
-function yesClicked() {
-    yesCount++;
-
-    if (yesCount < 10) {
-        moveYes();
-    }
-
-    if (yesCount === 9) {
-        let msg = document.getElementById("message");
-        msg.innerHTML = "Areee wait wait... how desperate you are to be my Valentine ha😉?<br>Okay, now try this last time!";
-        msg.style.display = "block";
-    }
-
-    if (yesCount === 10) {
-        window.location.href = "page2.html";
-    }
-}
-
-function moveYes() {
-    let btn = document.getElementById("yesBtn");
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 100);
-    btn.style.position = "absolute";
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
-
-</script>
-
-</body>
-</html>
