@@ -9,30 +9,39 @@
         margin: 0;
         padding: 0;
         height: 100vh;
-        background: url('yourBackground.png') no-repeat center center/cover;
+        background: url('bg.png') no-repeat center center/cover;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
         font-family: "Poppins", sans-serif;
+        position: relative;
+    }
+
+    .titleBox {
+        background: rgba(255, 255, 255, 0.65);
+        padding: 12px 20px;
+        border-radius: 12px;
+        margin-bottom: 40px;     /* ← keeps popup & text separate */
+        z-index: 2;
     }
 
     h1 {
-        background: rgba(255, 255, 255, 0.6);
-        padding: 12px 20px;
-        border-radius: 12px;
-        color: #ff005d;
-        text-align: center;
+        margin: 0;
+        color: #d6005a;
+        font-size: 26px;
     }
 
     button {
-        padding: 12px 25px;
+        padding: 12px 28px;
         font-size: 20px;
         border: none;
         border-radius: 12px;
         margin: 10px;
         cursor: pointer;
         font-weight: bold;
+        z-index: 2;
+        position: relative;
     }
 
     #yesBtn {
@@ -43,23 +52,24 @@
 
     #noBtn {
         background: white;
-        color: #ff2b70;
         border: 2px solid #ff2b70;
+        color: #ff2b70;
     }
 
+    /* Center popup */
     #popup {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: white;
-        padding: 20px 30px;
-        border-radius: 15px;
-        box-shadow: 0px 0px 20px rgba(255,0,100,0.7);
+        background: rgba(255,255,255,0.9);
+        padding: 25px 32px;
+        border-radius: 18px;
+        box-shadow: 0 0 25px rgba(255, 0, 100, 0.5);
         display: none;
         text-align: center;
         color: #ff2b70;
-        font-size: 18px;
+        font-size: 20px;
         z-index: 1000;
     }
 </style>
@@ -67,7 +77,9 @@
 </head>
 <body>
 
-<h1>Will you be my Valentine? ❤️</h1>
+<div class="titleBox">
+    <h1>Will you be my Valentine? ❤️</h1>
+</div>
 
 <button id="yesBtn">YES ❤️</button>
 <button id="noBtn" onclick="alert('Aree NO nako na baby 😭❤️')">NO 😒</button>
@@ -81,21 +93,21 @@ document.getElementById("yesBtn").addEventListener("click", function () {
 
     moveCount++;
 
-    // First 9 clicks → move only
+    // First 9 clicks → Move button only
     if (moveCount < 10) {
         let btn = document.getElementById("yesBtn");
-        let x = Math.random() * (window.innerWidth - 120);
-        let y = Math.random() * (window.innerHeight - 120);
+        let x = Math.random() * (window.innerWidth - 150);
+        let y = Math.random() * (window.innerHeight - 200);
 
         btn.style.left = x + "px";
         btn.style.top  = y + "px";
-        return; // important → stops redirect
+        return;
     }
 
-    // 10th click → show message then go to next page
+    // 10th click → Show final popup then redirect
     if (moveCount === 10) {
         let popup = document.getElementById("popup");
-        popup.innerHTML = "Aree kiti vela try karnar ha?<br>Okay chal last time try karu baghu 😉❤️";
+        popup.innerHTML = "Aree kiti vela try karnar ha? <br>Okay chal last time try karu baghu 😉❤️";
         popup.style.display = "block";
 
         setTimeout(() => {
