@@ -10,15 +10,13 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
-        background: url('https://i.ibb.co/vXxD0f8/romantic-bg.jpg') center/cover no-repeat fixed;
+        background: url('Pink White Simple Happy Valentines Day Greeting - Your Story_20260210_141157_0000.png') center/cover no-repeat fixed;
         text-align: center;
         color: white;
-        height: 100vh;
-        overflow: hidden;
     }
 
     .container {
-        margin-top: 25%;
+        margin-top: 30%;
     }
 
     h1 {
@@ -34,11 +32,19 @@
         cursor: pointer;
         margin: 10px;
         font-weight: bold;
-        position: relative;
     }
 
     #yesBtn { background: #ff4d6d; color: white; }
     #noBtn { background: gray; color: white; position: absolute; }
+
+    #message {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 0 10px #000;
+        display: none;
+    }
 </style>
 
 </head>
@@ -47,39 +53,51 @@
 <div class="container">
     <h1>Goluuuu ❤️<br>Will you be my Valentine?</h1>
     
-    <button id="yesBtn" onclick="moveYes()">Yes</button>
+    <button id="yesBtn" onclick="yesClicked()">Yes</button>
     <button id="noBtn" onclick="moveNo()">No</button>
+
+    <p id="message"></p>
 </div>
 
 <script>
-let yesMoves = 0;
 
-function moveYes() {
-    let yesBtn = document.getElementById("yesBtn");
+let yesCount = 0;
 
-    if (yesMoves < 10) {
-        // Random movement
-        let x = Math.random() * (window.innerWidth - yesBtn.offsetWidth);
-        let y = Math.random() * (window.innerHeight - yesBtn.offsetHeight);
+function moveNo() {
+    let btn = document.getElementById("noBtn");
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
 
-        yesBtn.style.position = "absolute";
-        yesBtn.style.left = x + "px";
-        yesBtn.style.top = y + "px";
+function yesClicked() {
+    yesCount++;
 
-        yesMoves++;
-    } else {
-        // After 10 moves, go to next page
+    if (yesCount < 10) {
+        moveYes();
+    }
+
+    if (yesCount === 9) {
+        let msg = document.getElementById("message");
+        msg.innerHTML = "Areee wait wait... how desperate you are to be my Valentine ha😉?<br>Okay, now try this last time!";
+        msg.style.display = "block";
+    }
+
+    if (yesCount === 10) {
         window.location.href = "page2.html";
     }
 }
 
-function moveNo() {
-    let btn = document.getElementById("noBtn");
-    let x = Math.random() * (window.innerWidth - btn.offsetWidth);
-    let y = Math.random() * (window.innerHeight - btn.offsetHeight);
+function moveYes() {
+    let btn = document.getElementById("yesBtn");
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+    btn.style.position = "absolute";
     btn.style.left = x + "px";
     btn.style.top = y + "px";
 }
+
 </script>
 
 </body>
