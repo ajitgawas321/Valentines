@@ -1,57 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Thank You ❤️</title>
+<meta charset="UTF-8">
+<title>Yayyy! ❤️</title>
 
 <style>
     body {
-        margin: 0;
-        padding: 0;
+        background: pink;
         font-family: "Poppins", sans-serif;
-        background: url('https://i.ibb.co/7J0mFSz/love-bg.jpg') center/cover no-repeat fixed;
-        color: white;
         text-align: center;
-    }
-
-    .container {
-        padding: 30px;
-        margin-top: 20%;
+        padding: 15% 10%;
+        color: #ff3366;
     }
 
     h1 {
-        font-size: 2rem;
-        text-shadow: 0 0 10px #000;
+        font-size: 2.2rem;
+        font-weight: 700;
     }
 
     p {
-        font-size: 1.2rem;
-        margin-top: 20px;
-        text-shadow: 0 0 10px #000;
+        font-size: 1.3rem;
+        margin-top: 10px;
     }
 
-    video {
-        width: 80%;
+    .marathi {
+        font-size: 1.25rem;
         margin-top: 25px;
-        border-radius: 10px;
+        color: #d6004c;
+        line-height: 1.6;
+        font-weight: 600;
     }
 </style>
-
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Yayyy! ❤️</h1>
-    <h2> kasa vatle tula maza valentines propse ha?</h2> 
-    <p1>baba sada sudha nahi karat me bug kasla karto te</p1>
-    
-    <p2>love youuuuu infinity goluuuuu maza batata umhaaaaaa😘😘😘😘😘😘</p2>
+<!-- Music (upload your file as 'music.mp3' in repo) -->
+<audio id="bgMusic" autoplay>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    <video controls>
-        <source src="YOUR_VIDEO_LINK.mp4" type="video/mp4">
-    </video>
+<h1>Yayyy! I knew you'd say YES! ❤️😘</h1>
+<p>You are officially my Valentine now 💖</p>
+
+<div class="marathi">
+    <h2>kasa vatle tula maza valentines propose ha? 💘</h2>
+
+    <p>baba sada sudha nahi karat me… bug kasla karto te 😌</p>
+
+    <p>love youuuuu infinity goluuuuu maza batata umhaaaaaa 😘😘😘😘😘😘</p>
 </div>
+
+<script>
+// Mobile requires tap to play audio
+document.body.addEventListener('click', () => {
+    document.getElementById('bgMusic').play();
+});
+</script>
 
 </body>
 </html>
