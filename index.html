@@ -65,3 +65,62 @@
         font-size: 1.2rem;
         font-weight: 600;
         display: none;
+        z-index: 999;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>Goluuuu ❤️<br>Will you be my Valentine?</h1>
+
+    <button id="yesBtn" onclick="yesClicked()">Yes</button>
+    <button id="noBtn" onclick="moveNo()">No</button>
+</div>
+
+<!-- Center Popup -->
+<div id="popup">
+    Areee wait wait... how desperate you are to be my Valentine ha😉?<br><br>
+    Okay now try this last time! 💕
+</div>
+
+<script>
+let yesCount = 0;
+
+function moveNo() {
+    let btn = document.getElementById("noBtn");
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+
+function yesClicked() {
+    yesCount++;
+
+    if (yesCount < 10) {
+        moveYes();
+    }
+
+    if (yesCount === 9) {
+        document.getElementById("popup").style.display = "block";
+    }
+
+    if (yesCount === 10) {
+        window.location.href = "page2.html";  
+    }
+}
+
+function moveYes() {
+    let btn = document.getElementById("yesBtn");
+    let x = Math.random() * (window.innerWidth - 120);
+    let y = Math.random() * (window.innerHeight - 120);
+    btn.style.position = "absolute";
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+</script>
+
+</body>
+</html>
