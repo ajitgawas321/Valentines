@@ -2,51 +2,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Will You Be My Valentine? ❤️</title>
+<title>Valentine?</title>
 
 <style>
     body {
         margin: 0;
         padding: 0;
-        font-family: "Poppins", sans-serif;
-        text-align: center;
         height: 100vh;
-        background: url('yourBackgroundImage.png') no-repeat center center/cover;
+        background: url('yourBackground.png') no-repeat center center/cover;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        font-family: "Poppins", sans-serif;
     }
 
     h1 {
-        color: #ff0055;
-        background: rgba(255,255,255,0.6);
-        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 12px 20px;
         border-radius: 12px;
+        color: #ff005d;
+        text-align: center;
     }
 
-    .btn {
-        padding: 12px 30px;
+    button {
+        padding: 12px 25px;
+        font-size: 20px;
         border: none;
         border-radius: 12px;
-        font-size: 20px;
-        margin: 12px;
+        margin: 10px;
         cursor: pointer;
+        font-weight: bold;
     }
 
     #yesBtn {
         background: #ff2b70;
         color: white;
+        position: absolute;
     }
 
     #noBtn {
         background: white;
-        border: 2px solid #ff2b70;
         color: #ff2b70;
-        position: absolute;
+        border: 2px solid #ff2b70;
     }
 
-    .popup {
+    /* Center popup */
+    #popup {
         position: fixed;
         top: 50%;
         left: 50%;
@@ -54,57 +56,51 @@
         background: white;
         padding: 20px 30px;
         border-radius: 15px;
-        box-shadow: 0 0 20px pink;
+        box-shadow: 0px 0px 20px rgba(255,0,100,0.7);
         display: none;
+        text-align: center;
+        color: #ff2b70;
         font-size: 18px;
         z-index: 1000;
     }
 </style>
-</head>
 
+</head>
 <body>
 
 <h1>Will you be my Valentine? ❤️</h1>
 
-<button class="btn" id="yesBtn">YES ❤️</button>
-<button class="btn" id="noBtn">NO 😒</button>
+<button id="yesBtn">YES ❤️</button>
+<button id="noBtn" onclick="alert('Aree NO nako na baby 😭❤️')">NO 😒</button>
 
-<div class="popup" id="popupBox"></div>
+<div id="popup"></div>
 
 <script>
-let clickCount = 0;
+let moveCount = 0;
 
 document.getElementById("yesBtn").onclick = function () {
-    window.location.href = "page2.html";
-};
+    moveCount++;
 
-document.getElementById("noBtn").onclick = function () {
-    clickCount++;
+    // For first 9 clicks → move button
+    if (moveCount < 10) {
+        let btn = document.getElementById("yesBtn");
+        let x = Math.random() * (window.innerWidth - 100);
+        let y = Math.random() * (window.innerHeight - 100);
 
-    let popup = document.getElementById("popupBox");
+        btn.style.left = x + "px";
+        btn.style.top = y + "px";
+    }
 
-    if (clickCount < 10) {
-        // Move button randomly
-        let btn = document.getElementById("noBtn");
-        btn.style.left = Math.random() * 300 + "px";
-        btn.style.top  = Math.random() * 400 + "px";
-
-        // On 9th click → show special message
-        if (clickCount === 9) {
-            popup.innerHTML = "Areee wait wait 😭❤️<br>How desperate you are to be my Valentine ha? 😉<br>Okay now try last time!";
-        } else {
-            popup.innerHTML = "Areee… YES mha naa baby 😭❤️";
-        }
-
+    // On 10th click → show popup
+    if (moveCount === 10) {
+        let popup = document.getElementById("popup");
+        popup.innerHTML = "Aree kiti vela try karnar ha? <br>Okay chal last time try karu baghu 😉❤️";
         popup.style.display = "block";
 
         setTimeout(() => {
             popup.style.display = "none";
-        }, 1500);
-
-    } else {
-        // 10th click → go to second page
-        window.location.href = "page2.html";
+            window.location.href = "page2.html"; // redirect to second page
+        }, 2500);
     }
 };
 </script>
