@@ -1,62 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Yayyy! ❤️</title>
+<title>Happy Valentine</title>
 
 <style>
     body {
-        background: pink;
-        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffe6f2;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .container {
         text-align: center;
-        padding: 15% 10%;
-        color: #ff3366;
     }
 
-    h1 {
-        font-size: 2.2rem;
-        font-weight: 700;
+    video {
+        width: 80%;
+        max-width: 400px;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
     }
 
-    p {
-        font-size: 1.3rem;
-        margin-top: 10px;
-    }
-
-    .marathi {
-        font-size: 1.25rem;
-        margin-top: 25px;
-        color: #d6004c;
-        line-height: 1.6;
-        font-weight: 600;
+    .title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #d9166f;
+        font-weight: bold;
     }
 </style>
 </head>
 
 <body>
 
-<!-- Music (upload your file as 'music.mp3' in repo) -->
-<audio id="bgMusic" autoplay>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+<div class="container">
+    <div class="title">Happy Valentine's Day ❤️</div>
 
-<h1>Yayyy! I knew you'd say YES! ❤️😘</h1>
-<p>You are officially my Valentine now 💖</p>
-
-<div class="marathi">
-    <h2>kasa vatle tula maza valentines propose ha? 💘</h2>
-
-    <p>baba sada sudha nahi karat me… bug kasla karto te 😌</p>
-
-    <p>love youuuuu infinity goluuuuu maza batata umhaaaaaa 😘😘😘😘😘😘</p>
+    <!-- Replace yourvideo.mp4 with your actual video -->
+    <video controls autoplay>
+        <source src="yourvideo.mp4" type="video/mp4">
+    </video>
 </div>
-
-<script>
-// Mobile requires tap to play audio
-document.body.addEventListener('click', () => {
-    document.getElementById('bgMusic').play();
-});
-</script>
 
 </body>
 </html>
