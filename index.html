@@ -6,102 +6,105 @@
 
 <style>
     body {
-        background: pink;
+        margin: 0;
+        padding: 0;
         font-family: "Poppins", sans-serif;
         text-align: center;
-        padding-top: 40px;
-    }
-
-    .container {
-        position: relative;
-    }
-
-    img {
-        width: 260px;
-        border-radius: 20px;
-        margin-bottom: 20px;
+        height: 100vh;
+        background: url('yourBackgroundImage.png') no-repeat center center/cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     h1 {
-        color: #d6004c;
+        color: #ff0055;
+        background: rgba(255,255,255,0.6);
+        padding: 10px 20px;
+        border-radius: 12px;
     }
 
     .btn {
-        padding: 10px 25px;
+        padding: 12px 30px;
         border: none;
-        border-radius: 10px;
-        font-size: 18px;
-        margin: 10px;
+        border-radius: 12px;
+        font-size: 20px;
+        margin: 12px;
         cursor: pointer;
     }
 
     #yesBtn {
-        background: #ff3366;
+        background: #ff2b70;
         color: white;
     }
 
     #noBtn {
         background: white;
-        border: 2px solid #ff3366;
-        color: #ff3366;
-        position: relative;
+        border: 2px solid #ff2b70;
+        color: #ff2b70;
+        position: absolute;
     }
 
-    /* Popup in middle */
     .popup {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background: white;
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 0 15px #ff6fa1;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px pink;
         display: none;
-        z-index: 999;
+        font-size: 18px;
+        z-index: 1000;
     }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>Will you be my Valentine? ❤️</h1>
+<h1>Will you be my Valentine? ❤️</h1>
 
-    <img src="Pink White Simple Happy Valentines Day Greeting - Your Story_20260210_141157_0000.png">
+<button class="btn" id="yesBtn">YES ❤️</button>
+<button class="btn" id="noBtn">NO 😒</button>
 
-    <br>
-
-    <button class="btn" id="yesBtn">YES ❤️</button>
-    <button class="btn" id="noBtn">NO 😒</button>
-
-    <div class="popup" id="popupBox">
-        Areee… YES mha naa baby 😭❤️  
-    </div>
-</div>
+<div class="popup" id="popupBox"></div>
 
 <script>
-let moveCount = 0;
+let clickCount = 0;
 
 document.getElementById("yesBtn").onclick = function () {
     window.location.href = "page2.html";
 };
 
 document.getElementById("noBtn").onclick = function () {
-    if (moveCount < 10) {
-        moveCount++;
+    clickCount++;
 
+    let popup = document.getElementById("popupBox");
+
+    if (clickCount < 10) {
+        // Move button randomly
         let btn = document.getElementById("noBtn");
-        btn.style.left = Math.random() * 200 + "px";
-        btn.style.top = Math.random() * 200 + "px";
+        btn.style.left = Math.random() * 300 + "px";
+        btn.style.top  = Math.random() * 400 + "px";
 
-        // Show popup in center
-        let popup = document.getElementById("popupBox");
+        // On 9th click → show special message
+        if (clickCount === 9) {
+            popup.innerHTML = "Areee wait wait 😭❤️<br>How desperate you are to be my Valentine ha? 😉<br>Okay now try last time!";
+        } else {
+            popup.innerHTML = "Areee… YES mha naa baby 😭❤️";
+        }
+
         popup.style.display = "block";
 
         setTimeout(() => {
             popup.style.display = "none";
-        }, 1200);
+        }, 1500);
+
+    } else {
+        // 10th click → go to second page
+        window.location.href = "page2.html";
     }
 };
 </script>
