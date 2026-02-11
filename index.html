@@ -1,125 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine?</title>
+<title>Will You Be My Valentine? ❤️</title>
 
 <style>
     body {
-        margin: 0;
-        padding: 0;
+        background: pink;
         font-family: "Poppins", sans-serif;
-        background: url('bg.png') center/cover no-repeat fixed;
         text-align: center;
-        color: white;
-        overflow: hidden;
+        padding-top: 40px;
     }
 
     .container {
-        margin-top: 25%;
+        position: relative;
+    }
+
+    img {
+        width: 260px;
+        border-radius: 20px;
+        margin-bottom: 20px;
     }
 
     h1 {
-        font-size: 2rem;
-        text-shadow: 0 0 10px #000;
-        padding: 0 20px;
+        color: #d6004c;
     }
 
-    button {
-        font-size: 1.2rem;
-        padding: 12px 25px;
-        border-radius: 8px;
+    .btn {
+        padding: 10px 25px;
         border: none;
-        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
         margin: 10px;
-        font-weight: bold;
-        transition: 0.2s ease;
+        cursor: pointer;
     }
 
     #yesBtn {
-        background: #ff4d6d;
+        background: #ff3366;
         color: white;
     }
 
     #noBtn {
-        background: gray;
-        color: white;
-        position: absolute;
+        background: white;
+        border: 2px solid #ff3366;
+        color: #ff3366;
+        position: relative;
     }
 
-    /* Popup Message Box */
-    #popup {
+    /* Popup in middle */
+    .popup {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.95);
-        color: #ff4d6d;
+        background: white;
         padding: 25px;
-        width: 80%;
-        max-width: 320px;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        text-align: center;
-        font-size: 1.2rem;
-        font-weight: 600;
+        border-radius: 20px;
+        box-shadow: 0 0 15px #ff6fa1;
         display: none;
         z-index: 999;
     }
 </style>
-
 </head>
+
 <body>
 
 <div class="container">
-    <h1>Goluuuu ❤️<br>Will you be my Valentine?</h1>
+    <h1>Will you be my Valentine? ❤️</h1>
 
-    <button id="yesBtn" onclick="yesClicked()">Yes</button>
-    <button id="noBtn" onclick="moveNo()">No</button>
-</div>
+    <img src="Pink White Simple Happy Valentines Day Greeting - Your Story_20260210_141157_0000.png">
 
-<!-- Center Popup -->
-<div id="popup">
-    Areee wait wait... how desperate you are to be my Valentine ha😉?<br><br>
-    Okay now try this last time! 💕
+    <br>
+
+    <button class="btn" id="yesBtn">YES ❤️</button>
+    <button class="btn" id="noBtn">NO 😒</button>
+
+    <div class="popup" id="popupBox">
+        Areee… YES mha naa baby 😭❤️  
+    </div>
 </div>
 
 <script>
-let yesCount = 0;
+let moveCount = 0;
 
-function moveNo() {
-    let btn = document.getElementById("noBtn");
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 100);
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
+document.getElementById("yesBtn").onclick = function () {
+    window.location.href = "page2.html";
+};
 
-function yesClicked() {
-    yesCount++;
+document.getElementById("noBtn").onclick = function () {
+    if (moveCount < 10) {
+        moveCount++;
 
-    if (yesCount < 10) {
-        moveYes();
+        let btn = document.getElementById("noBtn");
+        btn.style.left = Math.random() * 200 + "px";
+        btn.style.top = Math.random() * 200 + "px";
+
+        // Show popup in center
+        let popup = document.getElementById("popupBox");
+        popup.style.display = "block";
+
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 1200);
     }
-
-    if (yesCount === 9) {
-        document.getElementById("popup").style.display = "block";
-    }
-
-    if (yesCount === 10) {
-        window.location.href = "page2.html";  
-    }
-}
-
-function moveYes() {
-    let btn = document.getElementById("yesBtn");
-    let x = Math.random() * (window.innerWidth - 120);
-    let y = Math.random() * (window.innerHeight - 120);
-    btn.style.position = "absolute";
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
+};
 </script>
 
 </body>
