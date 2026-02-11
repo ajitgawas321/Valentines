@@ -47,7 +47,6 @@
         border: 2px solid #ff2b70;
     }
 
-    /* Center popup */
     #popup {
         position: fixed;
         top: 50%;
@@ -78,31 +77,34 @@
 <script>
 let moveCount = 0;
 
-document.getElementById("yesBtn").onclick = function () {
+document.getElementById("yesBtn").addEventListener("click", function () {
+
     moveCount++;
 
-    // For first 9 clicks → move button
+    // First 9 clicks → move only
     if (moveCount < 10) {
         let btn = document.getElementById("yesBtn");
-        let x = Math.random() * (window.innerWidth - 100);
-        let y = Math.random() * (window.innerHeight - 100);
+        let x = Math.random() * (window.innerWidth - 120);
+        let y = Math.random() * (window.innerHeight - 120);
 
         btn.style.left = x + "px";
-        btn.style.top = y + "px";
+        btn.style.top  = y + "px";
+        return; // important → stops redirect
     }
 
-    // On 10th click → show popup
+    // 10th click → show message then go to next page
     if (moveCount === 10) {
         let popup = document.getElementById("popup");
-        popup.innerHTML = "Aree kiti vela try karnar ha? <br>Okay chal last time try karu baghu 😉❤️";
+        popup.innerHTML = "Aree kiti vela try karnar ha?<br>Okay chal last time try karu baghu 😉❤️";
         popup.style.display = "block";
 
         setTimeout(() => {
             popup.style.display = "none";
-            window.location.href = "page2.html"; // redirect to second page
+            window.location.href = "page2.html";
         }, 2500);
     }
-};
+
+});
 </script>
 
 </body>
