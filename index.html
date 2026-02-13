@@ -8,21 +8,19 @@
     <style>
         :root {
             --primary-pink: #ff4d6d;
-            --secondary-pink: #ff758f;
             --dark-pink: #c9184a;
         }
 
         body {
             margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-            /* PASTE YOUR BACKGROUND IMAGE LINK BETWEEN THE QUOTES BELOW */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
-                              url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?auto=format&fit=crop&q=80');
+            /* PASTE YOUR BACKGROUND IMAGE LINK IN THE URL BELOW */
+            background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                        url('https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?auto=format&fit=crop&q=80');
             background-size: cover;
             background-position: center;
             overflow: hidden;
@@ -31,37 +29,38 @@
         .card {
             background: rgba(255, 255, 255, 0.9);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
+            width: 85%;
+            max-width: 450px;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             color: var(--dark-pink);
-            font-size: 3rem;
-            margin-bottom: 30px;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
         }
 
-        /* The container where buttons live */
+        /* Container where buttons move */
         .btn-container {
             position: relative;
             height: 250px;
             width: 100%;
-            margin-top: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 77, 109, 0.1);
+            border-radius: 15px;
         }
 
         .btn {
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: transform 0.2s;
+            transition: transform 0.2s, top 0.3s, left 0.3s;
             position: absolute;
         }
 
@@ -69,32 +68,32 @@
             background-color: var(--primary-pink);
             color: white;
             left: 20%;
-            top: 50px;
-            z-index: 100;
+            top: 40%;
+            z-index: 10;
         }
 
         #noBtn {
-            background-color: #6c757d;
+            background-color: #8d99ae;
             color: white;
             right: 20%;
-            top: 50px;
+            top: 40%;
         }
 
         .btn:hover {
             transform: scale(1.1);
-            filter: brightness(1.1);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
         }
 
-        #message {
-            margin-top: 20px;
+        #messageArea {
+            height: 50px;
             color: var(--dark-pink);
             font-weight: 600;
-            min-height: 24px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .visible { opacity: 1 !important; }
     </style>
 </head>
 <body>
@@ -102,66 +101,68 @@
     <div class="card">
         <h1>Will you be my valentines?</h1>
         
-        <div class="btn-container" id="container">
+        <div class="btn-container" id="box">
             <button id="yesBtn" class="btn">YES</button>
             <button id="noBtn" class="btn">NO</button>
         </div>
 
-        <p id="message"></p>
+        <div id="messageArea"></div>
     </div>
 
     <script>
         let clickCount = 0;
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
-        const message = document.getElementById('message');
-        const container = document.getElementById('container');
+        const msg = document.getElementById('messageArea');
+        const box = document.getElementById('box');
 
-        // Logic for NO button
+        // NO Button: Shows persistent message
         noBtn.addEventListener('click', () => {
-            message.textContent = "Aree no nko na mhanu 😭";
-            message.classList.add('visible');
+            msg.innerHTML = "No ka g mhantes 😭";
         });
 
-        // Logic for YES button
+        // YES Button: Moves 9 times, redirects on 10th
         yesBtn.addEventListener('click', () => {
             clickCount++;
+            
+            // Clear the "No" message when user tries to click Yes
+            msg.innerHTML = "";
 
             if (clickCount < 10) {
-                moveButton();
+                moveRandomly();
+                
                 if (clickCount === 9) {
-                    message.textContent = "Aree kiti vel try karan ha? Chal last time try kar 😤";
-                    message.classList.add('visible');
+                    msg.innerHTML = "Evdhe ghai zale ka g ? ,chal ajun ekda try kar 😤";
                 }
             } else {
                 window.location.href = "page2.html";
             }
         });
 
-        function moveButton() {
-            const containerRect = container.getBoundingClientRect();
+        function moveRandomly() {
+            const boxRect = box.getBoundingClientRect();
             const btnRect = yesBtn.getBoundingClientRect();
             const noRect = noBtn.getBoundingClientRect();
 
             let newX, newY;
-            let isOverlapping = true;
+            let overlap = true;
 
-            // Loop to ensure the new position doesn't overlap the "No" button
-            while (isOverlapping) {
-                newX = Math.random() * (containerRect.width - btnRect.width);
-                newY = Math.random() * (containerRect.height - btnRect.height);
+            // Simple loop to prevent overlap with NO button
+            while (overlap) {
+                newX = Math.random() * (boxRect.width - btnRect.width);
+                newY = Math.random() * (boxRect.height - btnRect.height);
 
-                // Check overlap with No button (relative to container)
-                const noRelX = noRect.left - containerRect.left;
-                const noRelY = noRect.top - containerRect.top;
+                const noRelX = noRect.left - boxRect.left;
+                const noRelY = noRect.top - boxRect.top;
 
-                const buffer = 10; // Extra space
-                const horizontalOverlap = (newX + btnRect.width + buffer > noRelX) && (newX - buffer < noRelX + noRect.width);
-                const verticalOverlap = (newY + btnRect.height + buffer > noRelY) && (newY - buffer < noRelY + noRect.height);
+                const isOverlapping = !(
+                    newX + btnRect.width < noRelX || 
+                    newX > noRelX + noRect.width || 
+                    newY + btnRect.height < noRelY || 
+                    newY > noRelY + noRect.height
+                );
 
-                if (!(horizontalOverlap && verticalOverlap)) {
-                    isOverlapping = false;
-                }
+                if (!isOverlapping) overlap = false;
             }
 
             yesBtn.style.left = newX + "px";
