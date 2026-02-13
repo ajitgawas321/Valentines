@@ -2,11 +2,16 @@
 <html>
 <head>
     <title>Valentine Surprise</title>
+
+    <!-- Cute Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
     <style>
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin-top: 100px;
+            overflow: hidden;
 
             /* 🔽 ADD YOUR BACKGROUND IMAGE LINK BELOW */
             background-image: url("ADD-YOUR-IMAGE-LINK-HERE");
@@ -16,47 +21,79 @@
         }
 
         h1 {
-            font-size: 40px;
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #ff4d88;
+            animation: fadeIn 2s ease-in-out;
         }
 
         .button-container {
             position: relative;
-            width: 300px;
-            height: 100px;
-            margin: 30px auto;
+            width: 700px;
+            height: 250px;
+            margin: 50px auto;
         }
 
         button {
-            padding: 10px 25px;
-            font-size: 18px;
+            padding: 12px 35px;
+            font-size: 20px;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
+            position: absolute;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        /* YES BUTTON STYLE */
         #yesBtn {
-            position: absolute;
-            left: 30px;
-            top: 30px;
+            background: linear-gradient(45deg, #ff66a3, #ff1a75);
+            color: white;
+            left: 80px;
+            top: 100px;
         }
 
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 0, 128, 0.5);
+        }
+
+        /* NO BUTTON STYLE */
         #noBtn {
-            position: absolute;
-            right: 30px;
-            top: 30px;
+            background: linear-gradient(45deg, #999, #555);
+            color: white;
+            right: 80px;
+            top: 100px;
+        }
+
+        #noBtn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, #777, #333);
         }
 
         #message {
             margin-top: 40px;
-            font-size: 20px;
-            color: red;
-            min-height: 30px;
+            font-size: 22px;
+            color: #ff0066;
+            font-weight: bold;
+            min-height: 40px;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
+        /* Fade Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>Will you be my valentines?</h1>
+    <h1>Will you be my valentines? 💖</h1>
 
-    <div class="button-container">
+    <div class="button-container" id="container">
         <button onclick="yesClick()" id="yesBtn">Yes</button>
         <button onclick="noClick()" id="noBtn">No</button>
     </div>
@@ -67,31 +104,55 @@
         let yesCount = 0;
 
         function noClick() {
-            document.getElementById("message").innerText =
-                "Aree no nko na mhanu";
+            const msg = document.getElementById("message");
+            msg.innerText = "Aree no nko na mhanu 😭";
         }
 
         function yesClick() {
             yesCount++;
 
-            let yesBtn = document.getElementById("yesBtn");
-            let container = document.querySelector(".button-container");
+            const yesBtn = document.getElementById("yesBtn");
+            const noBtn = document.getElementById("noBtn");
+            const container = document.getElementById("container");
 
             if (yesCount < 10) {
 
-                let maxX = container.clientWidth - yesBtn.offsetWidth;
-                let maxY = container.clientHeight - yesBtn.offsetHeight;
+                const buffer = 189; // 5cm ≈ 189px
 
-                let x = Math.random() * maxX;
-                let y = Math.random() * maxY;
+                const maxX = container.clientWidth - yesBtn.offsetWidth;
+                const maxY = container.clientHeight - yesBtn.offsetHeight;
+
+                let x, y;
+                let safe = false;
+
+                while (!safe) {
+                    x = Math.random() * maxX;
+                    y = Math.random() * maxY;
+
+                    const noRect = noBtn.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+
+                    const noX = noRect.left - containerRect.left;
+                    const noY = noRect.top - containerRect.top;
+
+                    const distance = Math.sqrt(
+                        Math.pow(x - noX, 2) +
+                        Math.pow(y - noY, 2)
+                    );
+
+                    if (distance > buffer) {
+                        safe = true;
+                    }
+                }
 
                 yesBtn.style.left = x + "px";
                 yesBtn.style.top = y + "px";
 
                 if (yesCount == 9) {
                     document.getElementById("message").innerText =
-                        "Aree kiti vel try karan ha? Chal last time try kar";
+                        "Aree kiti vel try karan ha? Chal last time try kar 😤";
                 }
+
             } else {
                 window.location.href = "page2.html";
             }
