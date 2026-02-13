@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yayyy! - Success</title>
+    <title>Yayyy! - Success 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -22,6 +22,7 @@
             font-family: 'Poppins', sans-serif;
             text-align: center;
             padding: 20px;
+            overflow: hidden; /* Keeps hearts inside screen */
         }
 
         .container {
@@ -31,6 +32,8 @@
             box-shadow: 0 15px 40px rgba(255, 77, 109, 0.2);
             max-width: 600px;
             width: 100%;
+            position: relative;
+            z-index: 2; /* Ensures content is above hearts */
         }
 
         h1 {
@@ -71,7 +74,7 @@
         .wow-msg {
             margin-top: 20px;
             color: #ff758f;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
             letter-spacing: 2px;
             font-style: italic;
@@ -81,19 +84,36 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--primary-pink);
             color: var(--dark-pink);
             text-decoration: none;
-            font-size: 0.8rem;
-            border-radius: 5px;
+            font-size: 0.9rem;
+            border-radius: 50px;
             transition: all 0.3s;
+            z-index: 10;
         }
 
         .secret-corner-btn:hover {
             background: var(--primary-pink);
             color: white;
+            transform: scale(1.1);
+        }
+
+        /* Heart Animation CSS */
+        .heart {
+            position: absolute;
+            color: var(--primary-pink);
+            font-size: 20px;
+            top: -10%;
+            user-select: none;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
@@ -116,6 +136,23 @@
     </div>
 
     <a href="page3.html" class="secret-corner-btn">Next Page →</a>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💖';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
 
 </body>
 </html>
