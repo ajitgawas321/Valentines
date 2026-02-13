@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine?</title>
+    <title>Valentine's Surprise</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-            /* PASTE YOUR BACKGROUND IMAGE LINK IN THE URL BELOW */
+            /* PASTE YOUR BACKGROUND IMAGE LINK BELOW */
             background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
                         url('https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?auto=format&fit=crop&q=80');
             background-size: cover;
@@ -27,41 +27,41 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
             border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
-            width: 85%;
+            width: 90%;
             max-width: 450px;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             color: var(--dark-pink);
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        /* Container where buttons move */
-        .btn-container {
+        /* The restricted area for the buttons */
+        .button-zone {
             position: relative;
-            height: 250px;
+            height: 220px;
             width: 100%;
-            margin: 20px 0;
+            margin: 15px 0;
             border: 1px solid rgba(255, 77, 109, 0.1);
             border-radius: 15px;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 12px 28px;
             font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: transform 0.2s, top 0.3s, left 0.3s;
             position: absolute;
+            transition: top 0.3s ease, left 0.3s ease, transform 0.2s;
         }
 
         #yesBtn {
@@ -79,20 +79,22 @@
             top: 40%;
         }
 
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
-        }
-
-        #messageArea {
-            height: 50px;
+        /* The message area strictly below the buttons */
+        #messageOutput {
+            height: 60px;
             color: var(--dark-pink);
             font-weight: 600;
             font-size: 1.1rem;
-            margin-top: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0 10px;
+            animation: popUp 0.3s ease-out;
+        }
+
+        @keyframes popUp {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -101,73 +103,56 @@
     <div class="card">
         <h1>Will you be my valentines?</h1>
         
-        <div class="btn-container" id="box">
+        <div class="button-zone" id="zone">
             <button id="yesBtn" class="btn">YES</button>
             <button id="noBtn" class="btn">NO</button>
         </div>
 
-        <div id="messageArea"></div>
+        <div id="messageOutput"></div>
     </div>
 
     <script>
         let clickCount = 0;
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
-        const msg = document.getElementById('messageArea');
-        const box = document.getElementById('box');
+        const output = document.getElementById('messageOutput');
+        const zone = document.getElementById('zone');
 
-        // NO Button: Shows persistent message
+        // NO Button Logic
         noBtn.addEventListener('click', () => {
-            msg.innerHTML = "No ka g mhantes 😭";
+            output.innerHTML = "No ka g mhantes 😭";
+            // Reset animation
+            output.style.animation = 'none';
+            output.offsetHeight; 
+            output.style.animation = null;
         });
 
-        // YES Button: Moves 9 times, redirects on 10th
+        // YES Button Logic
         yesBtn.addEventListener('click', () => {
             clickCount++;
             
-            // Clear the "No" message when user tries to click Yes
-            msg.innerHTML = "";
+            // Clear message while trying to click Yes
+            output.innerHTML = "";
 
             if (clickCount < 10) {
-                moveRandomly();
-                
+                const zoneRect = zone.getBoundingClientRect();
+                const btnWidth = yesBtn.offsetWidth;
+                const btnHeight = yesBtn.offsetHeight;
+
+                // Move button randomly within the zone
+                const newX = Math.random() * (zoneRect.width - btnWidth);
+                const newY = Math.random() * (zoneRect.height - btnHeight);
+
+                yesBtn.style.left = newX + "px";
+                yesBtn.style.top = newY + "px";
+
                 if (clickCount === 9) {
-                    msg.innerHTML = "Evdhe ghai zale ka g ? ,chal ajun ekda try kar 😤";
+                    output.innerHTML = "Evdhe ghai zale ka g ? ,chal ajun ekda try kar 😤";
                 }
             } else {
                 window.location.href = "page2.html";
             }
         });
-
-        function moveRandomly() {
-            const boxRect = box.getBoundingClientRect();
-            const btnRect = yesBtn.getBoundingClientRect();
-            const noRect = noBtn.getBoundingClientRect();
-
-            let newX, newY;
-            let overlap = true;
-
-            // Simple loop to prevent overlap with NO button
-            while (overlap) {
-                newX = Math.random() * (boxRect.width - btnRect.width);
-                newY = Math.random() * (boxRect.height - btnRect.height);
-
-                const noRelX = noRect.left - boxRect.left;
-                const noRelY = noRect.top - boxRect.top;
-
-                const isOverlapping = !(
-                    newX + btnRect.width < noRelX || 
-                    newX > noRelX + noRect.width || 
-                    newY + btnRect.height < noRelY || 
-                    newY > noRelY + noRect.height
-                );
-
-                if (!isOverlapping) overlap = false;
-            }
-
-            yesBtn.style.left = newX + "px";
-            yesBtn.style.top = newY + "px";
-        }
     </script>
 </body>
 </html>
