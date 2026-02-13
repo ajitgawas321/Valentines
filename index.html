@@ -1,139 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Valentine 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --secondary-pink: #ff758f;
+            --dark-pink: #c9184a;
+        }
+
         body {
             margin: 0;
+            padding: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-
-            /* 🔽 ADD YOUR BACKGROUND IMAGE LINK BELOW */
-            background-image: url("ADD-YOUR-IMAGE-LINK-HERE");
+            /* PASTE YOUR BACKGROUND IMAGE LINK BETWEEN THE QUOTES BELOW */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                              url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?auto=format&fit=crop&q=80');
             background-size: cover;
             background-position: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
         }
 
         h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 45px;
-            color: #ff4081;
-            margin-bottom: 40px;
+            font-family: 'Dancing Script', cursive;
+            color: var(--dark-pink);
+            font-size: 3rem;
+            margin-bottom: 30px;
         }
 
-        .buttons {
+        /* The container where buttons live */
+        .btn-container {
             position: relative;
-            width: 400px;
-            height: 200px;
+            height: 250px;
+            width: 100%;
+            margin-top: 20px;
         }
 
-        button {
-            padding: 12px 30px;
-            font-size: 18px;
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2rem;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s ease;
+            font-weight: 600;
+            transition: transform 0.2s;
+            position: absolute;
         }
 
         #yesBtn {
-            position: absolute;
-            left: 40px;
-            top: 80px;
-            background: linear-gradient(45deg, #ff4d6d, #ff1e56);
+            background-color: var(--primary-pink);
             color: white;
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
+            left: 20%;
+            top: 50px;
+            z-index: 100;
         }
 
         #noBtn {
-            position: absolute;
-            right: 40px;
-            top: 80px;
-            background: #444;
+            background-color: #6c757d;
             color: white;
+            right: 20%;
+            top: 50px;
         }
 
-        #noBtn:hover {
-            background: #222;
+        .btn:hover {
             transform: scale(1.1);
+            filter: brightness(1.1);
         }
 
         #message {
-            margin-top: 30px;
-            font-size: 20px;
-            color: crimson;
+            margin-top: 20px;
+            color: var(--dark-pink);
+            font-weight: 600;
+            min-height: 24px;
             opacity: 0;
-            transition: opacity 0.5s ease;
-            height: 30px;
+            transition: opacity 0.3s;
         }
 
-        .show {
-            opacity: 1;
-        }
+        .visible { opacity: 1 !important; }
     </style>
 </head>
 <body>
 
-    <h1>Will you be my valentines? 💖</h1>
+    <div class="card">
+        <h1>Will you be my valentines?</h1>
+        
+        <div class="btn-container" id="container">
+            <button id="yesBtn" class="btn">YES</button>
+            <button id="noBtn" class="btn">NO</button>
+        </div>
 
-    <div class="buttons" id="area">
-        <button id="yesBtn">Yes</button>
-        <button id="noBtn">No</button>
+        <p id="message"></p>
     </div>
 
-    <div id="message"></div>
-
     <script>
-        let yesCount = 0;
+        let clickCount = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const container = document.getElementById('container');
 
-        const yesBtn = document.getElementById("yesBtn");
-        const noBtn = document.getElementById("noBtn");
-        const message = document.getElementById("message");
-        const area = document.getElementById("area");
-
-        noBtn.addEventListener("click", () => {
-            message.innerText = "Aree no nko na mhanu 😭";
-
-            message.classList.remove("show");
-            void message.offsetWidth; // restart animation
-            message.classList.add("show");
+        // Logic for NO button
+        noBtn.addEventListener('click', () => {
+            message.textContent = "Aree no nko na mhanu 😭";
+            message.classList.add('visible');
         });
 
-        yesBtn.addEventListener("click", () => {
-            yesCount++;
+        // Logic for YES button
+        yesBtn.addEventListener('click', () => {
+            clickCount++;
 
-            if (yesCount < 10) {
-
-                const padding = 20;
-                const maxX = area.clientWidth - yesBtn.offsetWidth - padding;
-                const maxY = area.clientHeight - yesBtn.offsetHeight - padding;
-
-                const newX = Math.random() * maxX;
-                const newY = Math.random() * maxY;
-
-                yesBtn.style.left = newX + "px";
-                yesBtn.style.top = newY + "px";
-
-                if (yesCount === 9) {
-                    message.innerText = "Aree kiti vel try karan ha? Chal last time try kar 😤";
-                    message.classList.add("show");
+            if (clickCount < 10) {
+                moveButton();
+                if (clickCount === 9) {
+                    message.textContent = "Aree kiti vel try karan ha? Chal last time try kar 😤";
+                    message.classList.add('visible');
                 }
-
             } else {
                 window.location.href = "page2.html";
             }
         });
-    </script>
 
+        function moveButton() {
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = yesBtn.getBoundingClientRect();
+            const noRect = noBtn.getBoundingClientRect();
+
+            let newX, newY;
+            let isOverlapping = true;
+
+            // Loop to ensure the new position doesn't overlap the "No" button
+            while (isOverlapping) {
+                newX = Math.random() * (containerRect.width - btnRect.width);
+                newY = Math.random() * (containerRect.height - btnRect.height);
+
+                // Check overlap with No button (relative to container)
+                const noRelX = noRect.left - containerRect.left;
+                const noRelY = noRect.top - containerRect.top;
+
+                const buffer = 10; // Extra space
+                const horizontalOverlap = (newX + btnRect.width + buffer > noRelX) && (newX - buffer < noRelX + noRect.width);
+                const verticalOverlap = (newY + btnRect.height + buffer > noRelY) && (newY - buffer < noRelY + noRect.height);
+
+                if (!(horizontalOverlap && verticalOverlap)) {
+                    isOverlapping = false;
+                }
+            }
+
+            yesBtn.style.left = newX + "px";
+            yesBtn.style.top = newY + "px";
+        }
+    </script>
 </body>
 </html>
