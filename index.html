@@ -20,25 +20,35 @@
         }
 
         .button-container {
-            margin-top: 20px;
+            position: relative;
+            width: 300px;
+            height: 100px;
+            margin: 30px auto;
         }
 
         button {
             padding: 10px 25px;
             font-size: 18px;
-            margin: 10px;
             cursor: pointer;
         }
 
         #yesBtn {
-            position: relative;
+            position: absolute;
+            left: 30px;
+            top: 30px;
+        }
+
+        #noBtn {
+            position: absolute;
+            right: 30px;
+            top: 30px;
         }
 
         #message {
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 20px;
             color: red;
-            min-height: 30px; /* keeps space reserved */
+            min-height: 30px;
         }
     </style>
 </head>
@@ -48,7 +58,7 @@
 
     <div class="button-container">
         <button onclick="yesClick()" id="yesBtn">Yes</button>
-        <button onclick="noClick()">No</button>
+        <button onclick="noClick()" id="noBtn">No</button>
     </div>
 
     <div id="message"></div>
@@ -57,22 +67,24 @@
         let yesCount = 0;
 
         function noClick() {
-            // Every time "No" is clicked, message shows
             document.getElementById("message").innerText =
                 "Aree no nko na mhanu";
         }
 
         function yesClick() {
             yesCount++;
+
             let yesBtn = document.getElementById("yesBtn");
+            let container = document.querySelector(".button-container");
 
             if (yesCount < 10) {
 
-                // Move button randomly
-                let x = Math.random() * (window.innerWidth - 120);
-                let y = Math.random() * (window.innerHeight - 60);
+                let maxX = container.clientWidth - yesBtn.offsetWidth;
+                let maxY = container.clientHeight - yesBtn.offsetHeight;
 
-                yesBtn.style.position = "absolute";
+                let x = Math.random() * maxX;
+                let y = Math.random() * maxY;
+
                 yesBtn.style.left = x + "px";
                 yesBtn.style.top = y + "px";
 
