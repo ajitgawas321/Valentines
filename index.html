@@ -1,145 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Will You Be My Valentine?</title>
+    <title>Valentine Surprise</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
 
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-        background: url('Pink White Simple Happy Valentines Day Greeting - Your Story_20260210_141157_0000.png') center/cover no-repeat fixed;
-        text-align: center;
-        color: white;
-        height: 100vh;
-        overflow: hidden;
-    }
+            /* 🔽 ADD YOUR BACKGROUND IMAGE LINK BELOW */
+            background-image: url("ADD-YOUR-IMAGE-LINK-HERE");
+            background-size: cover;
+            background-position: center;
+        }
 
-    .container {
-        position: relative;
-        top: 12%;
-    }
+        h1 {
+            font-size: 40px;
+        }
 
-    h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        text-shadow: 0 0 10px #000;
-        margin-bottom: 40px;
-    }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+        }
 
-    button {
-        font-size: 1.2rem;
-        padding: 12px 25px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        margin: 10px;
-        font-weight: bold;
-    }
-
-    #yesBtn {
-        background: #ff1e71;
-        color: white;
-    }
-
-    #noBtn {
-        background: #444;
-        color: white;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #popup {
-        margin-top: 30px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        background: rgba(255, 255, 255, 0.8);
-        color: black;
-        padding: 12px 18px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 350px;
-        margin-left: auto;
-        margin-right: auto;
-        display: none;
-        box-shadow: 0 0 10px black;
-    }
-
-    #noMsg {
-        position: fixed;
-        bottom: 25px;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 100%;
-        text-align: center;
-        color: #ffdede;
-        font-size: 1.3rem;
-        font-weight: bold;
-        text-shadow: 0 0 6px black;
-        display: none;
-    }
-</style>
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Goluuuu ❤️<br>Will you be my Valentine?</h1>
+    <h1>Will you be my valentines?</h1>
 
-    <button id="yesBtn" onclick="yesClicked()">Yes</button>
-    <button id="noBtn" onclick="noClicked()">No</button>
+    <button onclick="yesClick()" id="yesBtn">Yes</button>
+    <button onclick="noClick()">No</button>
 
-    <div id="popup"></div>
-    <div id="noMsg"></div>
-</div>
+    <div id="message"></div>
 
-<script>
-let yesCount = 0;
+    <script>
+        let yesCount = 0;
 
-function yesClicked() {
-    yesCount++;
-    let yesBtn = document.getElementById("yesBtn");
-    let popup = document.getElementById("popup");
+        function noClick() {
+            document.getElementById("message").innerText = "Aree no nko na mhanu";
+        }
 
-    if (yesCount <= 9) {
-        // Move button randomly
-        let x = Math.random() * (window.innerWidth - 120);
-        let y = Math.random() * (window.innerHeight - 150);
+        function yesClick() {
+            yesCount++;
 
-        yesBtn.style.position = "absolute";
-        yesBtn.style.left = x + "px";
-        yesBtn.style.top = y + "px";
-    }
+            if (yesCount < 10) {
+                let yesBtn = document.getElementById("yesBtn");
 
-    if (yesCount === 9) {
-        popup.style.display = "block";
-        popup.innerHTML = "Aree kiti vela try karnar ha? 😭 <br>Okay chal, LAST time try karu baghu!";
-    }
+                // Move button randomly
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
 
-    if (yesCount === 10) {
-        window.location.href = "page2.html";
-    }
-}
+                yesBtn.style.position = "absolute";
+                yesBtn.style.left = x + "px";
+                yesBtn.style.top = y + "px";
 
-function noClicked() {
-    let noBtn = document.getElementById("noBtn");
-    let noMsg = document.getElementById("noMsg");
-
-    // Random movement
-    let x = Math.random() * (window.innerWidth - 120);
-    let y = Math.random() * (window.innerHeight - 150);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-
-    noMsg.style.display = "block";
-    noMsg.innerHTML = "Golu no nko na mhanu 😭";
-}
-</script>
+                if (yesCount == 9) {
+                    document.getElementById("message").innerText =
+                        "Aree kiti vel try karan ha? Chal last time try kar";
+                }
+            } else {
+                // On 10th click go to second page
+                window.location.href = "page2.html";
+            }
+        }
+    </script>
 
 </body>
 </html>
