@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise! 🎂✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #ffb703;
+            --birthday-pink: #ff4d6d;
+            --neon-glow: #00f5d4;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #0d1b2a; 
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 1. The 3-second Marathi Message Screen */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff0f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+
+        #preloader h2 {
+            color: var(--dark-pink);
+            font-size: 2rem;
+            padding: 20px;
+            animation: pulseText 1.5s infinite;
+        }
+
+        @keyframes pulseText {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        /* 2. Main Birthday Content (Hidden initially) */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .birthday-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: white;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+            margin-bottom: 10px;
+        }
+
+        .birthday-text span {
+            display: inline-block;
+            animation: bounceWave 1.5s ease-in-out infinite;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @keyframes bounceWave {
+            0%, 100% { transform: translateY(0); color: #fff; }
+            50% { transform: translateY(-25px); color: var(--birthday-pink); }
+        }
+
+        .greetings-text {
+            font-size: 1.8rem;
+            color: var(--neon-glow);
+            font-weight: 600;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--neon-glow), 0 0 20px var(--neon-glow);
+        }
+
+        /* 3. The Emoji Shower */
+        .emoji {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            user-select: none;
+            z-index: 1;
+            animation: shower linear forwards;
+        }
+
+        @keyframes shower {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .home-btn {
+            position: fixed;
+            bottom: 30px;
+            padding: 12px 30px;
+            background: white;
+            color: #0d1b2a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <h2>hoo hooo mahitye ahe tuza birthday Pan ahe 😉🎂</h2>
+    </div>
+
+    <div id="main-content">
+        <div class="birthday-text">
+            <span style="--i:1">H</span><span style="--i:2">a</span><span style="--i:3">p</span><span style="--i:4">p</span><span style="--i:5">y</span>
+            <span>&nbsp;</span>
+            <span style="--i:6">B</span><span style="--i:7">i</span><span style="--i:8">r</span><span style="--i:9">t</span><span style="--i:10">h</span><span style="--i:11">d</span><span style="--i:12">a</span><span style="--i:13">y</span><span style="--i:14">!</span>
+        </div>
+
+        <div class="greetings-text">
+            Many Many Happy Returns of the Day! 🍰✨
+        </div>
+
+        <a href="index.html" class="home-btn">Back to Start ❤️</a>
+    </div>
+
+    <script>
+        // Preloader Logic: Show for 3 seconds, then swap content
+        window.onload = function() {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                const mainContent = document.getElementById('main-content');
+                
+                preloader.style.opacity = '0'; // Fade out
+                
+                setTimeout(() => {
+                    preloader.style.display = 'none'; // Remove completely
+                    mainContent.style.display = 'flex'; // Show birthday
+                    startEmojiShower(); // Start the party!
+                }, 500);
+            }, 3000); // 3000ms = 3 seconds
+        };
+
+        function startEmojiShower() {
+            setInterval(createEmoji, 100);
+        }
+
+        function createEmoji() {
+            const emojis = ['🎂', '🎈', '🎁', '🎉', '✨', '🥳', '💖', '🌸', '🧁'];
+            const emojiEl = document.createElement('div');
+            emojiEl.classList.add('emoji');
+            emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emojiEl.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 2 + 3 + 's';
+            emojiEl.style.animationDuration = duration;
+            emojiEl.style.fontSize = Math.random() * 25 + 15 + 'px';
+            
+            document.body.appendChild(emojiEl);
+            setTimeout(() => emojiEl.remove(), 5000);
+        }
+    </script>
+
+</body>
+</html>
